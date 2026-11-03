@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 import { TrendingUp, House, Map, FileSearch, MessageCircleMore, Crown, Sun, Moon, ArrowRight, Menu, X } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const nav = useNavigate()
   const user = useSelector((state) => state.auth.user);
   console.log(user);
 
@@ -35,17 +36,15 @@ const Navbar = () => {
 
           <li>
             <NavLink to="/" end className={({ isActive }) =>
-              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${
-                isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
               }`
             }>
               {({ isActive }) => (
                 <>
                   <House size={20} />
                   Home
-                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`} />
+                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`} />
                 </>
               )}
             </NavLink>
@@ -53,17 +52,15 @@ const Navbar = () => {
 
           <li>
             <NavLink to="/roadmap" className={({ isActive }) =>
-              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${
-                isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
               }`
             }>
               {({ isActive }) => (
                 <>
                   <Map size={20} />
                   AI Roadmap
-                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`} />
+                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`} />
                 </>
               )}
             </NavLink>
@@ -71,17 +68,15 @@ const Navbar = () => {
 
           <li>
             <NavLink to="/resume-analyzer" className={({ isActive }) =>
-              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${
-                isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
               }`
             }>
               {({ isActive }) => (
                 <>
                   <FileSearch size={20} />
                   Resume Analyzer
-                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`} />
+                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`} />
                 </>
               )}
             </NavLink>
@@ -89,17 +84,15 @@ const Navbar = () => {
 
           <li>
             <NavLink to="/interview-prep" className={({ isActive }) =>
-              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${
-                isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
               }`
             }>
               {({ isActive }) => (
                 <>
                   <MessageCircleMore size={20} />
                   Interview Prep
-                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`} />
+                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`} />
                 </>
               )}
             </NavLink>
@@ -107,17 +100,15 @@ const Navbar = () => {
 
           <li>
             <NavLink to="/pricing" className={({ isActive }) =>
-              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${
-                isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              `group relative flex items-center gap-2 px-2 py-3 text-sm font-semibold transition-all duration-300 2xl:text-base ${isActive ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
               }`
             }>
               {({ isActive }) => (
                 <>
                   <Crown size={20} />
                   Pricing
-                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`} />
+                  <span className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`} />
                 </>
               )}
             </NavLink>
@@ -155,9 +146,10 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <span className="font-semibold text-slate-700">
+            <button className="px-4 py-3 font-semibold text-slate-700"
+              onClick={() => nav("/user-profile")} >
               Welcome, {user.name}
-            </span>
+            </button>
           )}
 
         </div>
@@ -174,7 +166,7 @@ const Navbar = () => {
 
       </div>
 
-      
+
       {menuOpen && (
         <div className="mx-auto mt-3 max-w-[1600px] rounded-2xl border border-slate-100 bg-white p-4 shadow-xl xl:hidden">
 
@@ -183,8 +175,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/" end onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
-                    isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
+                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
                   }`
                 }>
                 <House size={20} />
@@ -195,8 +186,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/roadmap" onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
-                    isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
+                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
                   }`
                 }>
                 <Map size={20} />
@@ -207,8 +197,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/resume-analyzer" onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
-                    isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
+                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
                   }`
                 }>
                 <FileSearch size={20} />
@@ -219,8 +208,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/interview-prep" onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
-                    isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
+                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
                   }`
                 }>
                 <MessageCircleMore size={20} />
@@ -231,8 +219,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/pricing" onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
-                    isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
+                  `flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${isActive ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
                   }`
                 }>
                 <Crown size={20} />
@@ -266,9 +253,11 @@ const Navbar = () => {
                 </Link>
               </>
             ) : (
-              <p className="px-4 py-3 font-semibold text-slate-700">
+              <button className="px-4 py-3 font-semibold text-slate-700"
+                onClick={() => nav("/user-profile")} >
                 Welcome, {user.name}
-              </p>
+              </button>
+
             )}
 
             <button

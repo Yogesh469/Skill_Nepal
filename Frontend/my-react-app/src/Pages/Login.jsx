@@ -6,7 +6,7 @@ import axios from "axios";
 
 import {BrainCircuit, Mail,LockKeyhole, Eye, EyeOff,ArrowRight,Sparkles,ShieldCheck} from "lucide-react";
 import { useDispatch } from "react-redux";
-import loginUser from "../redux/authSlice.js";
+import { loginUser } from "../redux/authSlice.js";
 
 const Login = () => {
 

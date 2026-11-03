@@ -74,7 +74,8 @@ export const LoginUser = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
-            maxAge: 60 * 60 * 1000
+            maxAge: 60 * 60 * 1000,
+            path: "/"
         });
 
         res.status(200).json({
@@ -148,4 +149,18 @@ export const GetProfile = async (req, res) => {
             error: error.message
         });
     }
+};
+
+
+export const LogoutUser = (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/"
+    });
+
+    res.status(200).json({
+        message: "Logout successful"
+    });
 };

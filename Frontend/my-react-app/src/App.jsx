@@ -9,6 +9,7 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import { Routes ,Route } from 'react-router'
 import Footer from './Components/Footer'
+import UserProfile from './Pages/UserProfile'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
 
       <Footer />
