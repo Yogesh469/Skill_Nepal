@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import Authroute from "./routes/AuthRoute.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import roadrouter from "./routes/Roadmaproutes.js"
 
 dotenv.config()
 
@@ -27,6 +28,7 @@ app.get("/" , (req,res)=>{
 })
 
 app.use("/Authapi" ,Authroute)
+app.use("/roadmapapi",roadrouter)
 
 
 

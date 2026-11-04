@@ -10,6 +10,7 @@ import Register from './Pages/Register'
 import { Routes ,Route } from 'react-router'
 import Footer from './Components/Footer'
 import UserProfile from './Pages/UserProfile'
+import GenerateRoadmap from './Pages/GenerateRoadmap'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/generate-roadmap" element={<GenerateRoadmap />} />
       </Routes>
 
       <Footer />
