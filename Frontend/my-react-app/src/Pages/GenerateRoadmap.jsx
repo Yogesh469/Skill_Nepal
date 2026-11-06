@@ -5,6 +5,8 @@ import { Link } from "react-router";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import { BrainCircuit, GraduationCap, Code, Target, Clock, Sparkles, BookOpen, ArrowRight, LoaderCircle, LockKeyhole, AlertCircle, RefreshCw } from "lucide-react";
 
@@ -121,7 +123,7 @@ const GenerateRoadmap = () => {
                 <div className="grid lg:grid-cols-5 gap-8 items-start">
 
 
-                  
+
 
                     <div className="lg:col-span-3 bg-white rounded-3xl border border-slate-100 shadow-lg p-6 md:p-9">
 
@@ -188,7 +190,7 @@ const GenerateRoadmap = () => {
                                 <Form className="space-y-6">
 
 
-                                    
+
                                     <div>
 
                                         <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
@@ -224,7 +226,7 @@ const GenerateRoadmap = () => {
                                     </div>
 
 
-                                    
+
 
                                     <div>
 
@@ -254,7 +256,7 @@ const GenerateRoadmap = () => {
                                     </div>
 
 
-                                    
+
 
                                     <div>
 
@@ -279,7 +281,7 @@ const GenerateRoadmap = () => {
                                     </div>
 
 
-                                   
+
 
                                     <div>
 
@@ -309,7 +311,7 @@ const GenerateRoadmap = () => {
                                     </div>
 
 
-                                   
+
 
                                     <div>
 
@@ -342,7 +344,7 @@ const GenerateRoadmap = () => {
                                     </div>
 
 
-                                   
+
 
                                     {error && (
 
@@ -359,7 +361,7 @@ const GenerateRoadmap = () => {
                                     )}
 
 
-                                  
+
 
                                     <button
                                         type="submit"
@@ -395,11 +397,11 @@ const GenerateRoadmap = () => {
                     </div>
 
 
-                    
+
                     <div className="lg:col-span-2 space-y-6">
 
 
-                        
+
 
                         <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-7 text-white shadow-lg">
 
@@ -444,7 +446,7 @@ const GenerateRoadmap = () => {
                         </div>
 
 
-                        
+
 
                         <div className="bg-white border border-slate-100 rounded-3xl p-7 shadow-sm">
 
@@ -493,7 +495,7 @@ const GenerateRoadmap = () => {
                 </div>
 
 
-                
+
 
                 {roadmap && (
 
@@ -533,8 +535,73 @@ const GenerateRoadmap = () => {
 
                         <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 md:p-8">
 
-                            <div className="whitespace-pre-wrap text-slate-700 leading-8 text-sm md:text-base">
-                                {roadmap}
+                            <div className="bg-white border border-blue-100 rounded-2xl p-5 md:p-8 shadow-sm">
+
+                                <div className="
+        text-slate-700 text-sm md:text-base leading-8 space-y-6
+
+        [&_h1]:text-3xl [&_h1]:font-extrabold
+        [&_h1]:text-blue-700 [&_h1]:mb-6
+        [&_h1]:pb-4 [&_h1]:border-b [&_h1]:border-blue-100
+
+        [&_h2]:text-2xl [&_h2]:font-bold
+        [&_h2]:text-blue-700 [&_h2]:mt-10
+        [&_h2]:mb-5 [&_h2]:pb-3
+        [&_h2]:border-b [&_h2]:border-blue-100
+
+        [&_h3]:text-xl [&_h3]:font-bold
+        [&_h3]:text-slate-900 [&_h3]:mt-8
+        [&_h3]:mb-4
+
+        [&_h4]:text-lg [&_h4]:font-bold
+        [&_h4]:text-blue-700 [&_h4]:mt-6
+        [&_h4]:mb-3 [&_h4]:bg-blue-50
+        [&_h4]:border-l-4 [&_h4]:border-blue-500
+        [&_h4]:rounded-r-lg [&_h4]:px-4 [&_h4]:py-3
+
+        [&_p]:mb-4 [&_p]:text-slate-600
+
+        [&_ul]:list-disc [&_ul]:pl-6
+        [&_ul]:space-y-2 [&_ul]:my-4
+
+        [&_ol]:list-decimal [&_ol]:pl-6
+        [&_ol]:space-y-2 [&_ol]:my-4
+
+        [&_li]:pl-1 [&_li]:text-slate-600
+        [&_li]:marker:text-blue-500
+
+        [&_strong]:font-bold [&_strong]:text-slate-900
+
+        [&_hr]:my-9 [&_hr]:border-slate-200
+
+        [&_blockquote]:border-l-4
+        [&_blockquote]:border-blue-400
+        [&_blockquote]:bg-blue-50
+        [&_blockquote]:rounded-r-lg
+        [&_blockquote]:px-5 [&_blockquote]:py-3
+        [&_blockquote]:my-5
+
+        [&_table]:w-full [&_table]:border-collapse
+        [&_table]:my-6 [&_table]:text-sm
+
+        [&_thead]:bg-blue-600 [&_thead]:text-white
+
+        [&_th]:px-4 [&_th]:py-3
+        [&_th]:text-left [&_th]:font-semibold
+
+        [&_td]:px-4 [&_td]:py-3
+        [&_td]:border-b [&_td]:border-slate-200
+
+        [&_tr:nth-child(even)]:bg-blue-50/50
+
+        [&_code]:bg-blue-50 [&_code]:text-blue-700
+        [&_code]:px-2 [&_code]:py-1 [&_code]:rounded-md
+    ">
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        {roadmap}
+                                    </ReactMarkdown>
+                                </div>
+
                             </div>
 
                         </div>

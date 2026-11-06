@@ -131,3 +131,41 @@ export const getMyRoadmaps = async (req, res) => {
     }
 
 };
+
+
+
+export const deleteRoadmap = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const roadmap = await Roadmap.findOneAndDelete({
+            _id: id,
+            userId: req.user.id
+        });
+
+        if (!roadmap) {
+            return res.status(404).json({
+                success: false,
+                message: "Roadmap not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Roadmap deleted successfully"
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to delete roadmap"
+        });
+
+    }
+
+};
