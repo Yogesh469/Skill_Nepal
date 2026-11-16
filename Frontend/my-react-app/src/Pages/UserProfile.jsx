@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,7 +7,8 @@ import remarkGfm from "remark-gfm";
 
 import { logoutUser } from "../redux/authSlice.js";
 
-import { User,Mail,ShieldCheck,LogOut, ArrowLeft, BookOpen,Clock,GraduationCap, ChevronDown, ChevronUp,Trash2} from "lucide-react";
+import {  User,Mail,ShieldCheck,LogOut,ArrowLeft,BookOpen,Clock,GraduationCap,ChevronDown,ChevronUp,Trash2,FileText,Award,CheckCircle2,AlertCircle,Lightbulb,MessageSquare,BriefcaseBusiness} from "lucide-react";
+
 
 const UserProfile = () => {
 
@@ -20,13 +20,30 @@ const UserProfile = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    // Roadmap states
+
+   
     const [roadmaps, setRoadmaps] = useState([]);
     const [roadmapLoading, setRoadmapLoading] = useState(false);
     const [roadmapError, setRoadmapError] = useState("");
     const [selectedRoadmap, setSelectedRoadmap] = useState(null);
 
-    // Fetch user's roadmaps
+
+    
+    const [resumes, setResumes] = useState([]);
+    const [resumeLoading, setResumeLoading] = useState(false);
+    const [resumeError, setResumeError] = useState("");
+    const [selectedResume, setSelectedResume] = useState(null);
+
+
+    
+    const [interviews, setInterviews] = useState([]);
+    const [interviewLoading, setInterviewLoading] = useState(false);
+    const [interviewError, setInterviewError] = useState("");
+    const [selectedInterview, setSelectedInterview] = useState(null);
+
+
+
+    
     useEffect(() => {
 
         const fetchRoadmaps = async () => {
@@ -62,7 +79,85 @@ const UserProfile = () => {
 
     }, [user]);
 
-    // Delete Roadmap
+
+
+    
+    useEffect(() => {
+
+        const fetchResumes = async () => {
+
+            try {
+                setResumeLoading(true);
+                setResumeError("");
+
+                const res = await axios.get(
+                    "http://localhost:9000/resumeanalapi/my-resume",
+                    {
+                        withCredentials: true
+                    }
+                );
+
+                setResumes(res.data.resumes || []);
+
+            } catch (error) {
+
+                setResumeError(
+                    error.response?.data?.message ||
+                    "Unable to fetch your resume history."
+                );
+
+            } finally {
+                setResumeLoading(false);
+            }
+        };
+
+        if (user) {
+            fetchResumes();
+        }
+
+    }, [user]);
+
+
+
+    
+    useEffect(() => {
+
+        const fetchInterviews = async () => {
+
+            try {
+                setInterviewLoading(true);
+                setInterviewError("");
+
+                const res = await axios.get(
+                    "http://localhost:9000/interviewapi/my-interviews",
+                    {
+                        withCredentials: true
+                    }
+                );
+
+                setInterviews(res.data.interviews || []);
+
+            } catch (error) {
+
+                setInterviewError(
+                    error.response?.data?.message ||
+                    "Unable to fetch your interview history."
+                );
+
+            } finally {
+                setInterviewLoading(false);
+            }
+        };
+
+        if (user) {
+            fetchInterviews();
+        }
+
+    }, [user]);
+
+
+
+    
     const handleDeleteRoadmap = async (id) => {
 
         const confirmDelete = window.confirm(
@@ -100,7 +195,9 @@ const UserProfile = () => {
         }
     };
 
-    // Logout functionality
+
+
+   
     const handleLogout = async () => {
 
         try {
@@ -135,7 +232,9 @@ const UserProfile = () => {
         }
     };
 
-    // Login check
+
+
+   
     if (!user) {
 
         return (
@@ -156,11 +255,14 @@ const UserProfile = () => {
         );
     }
 
+
+
     return (
 
         <div className="min-h-screen bg-slate-50 px-4 py-12">
 
             <div className="mx-auto max-w-3xl">
+
 
                 <Link
                     to="/"
@@ -170,8 +272,12 @@ const UserProfile = () => {
                     Back to Home
                 </Link>
 
+
+
                 <div className="overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl shadow-slate-200/50">
 
+
+                    
                     <div className="bg-gradient-to-r from-blue-600 to-sky-500 px-8 py-12 text-center">
 
                         <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-white text-4xl font-bold text-blue-600 shadow-lg">
@@ -188,72 +294,84 @@ const UserProfile = () => {
 
                     </div>
 
-                    <div className="p-8">
 
-                        <h2 className="mb-6 text-xl font-bold text-slate-800">
-                            Account Information
-                        </h2>
 
-                        <div className="space-y-5">
+                    <div className="p-6 sm:p-8">
 
-                            <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5">
 
-                                <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
-                                    <User size={22} />
+                        
+                        <section>
+
+                            <h2 className="mb-6 text-xl font-bold text-slate-800">
+                                Account Information
+                            </h2>
+
+                            <div className="space-y-5">
+
+                                <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5">
+
+                                    <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+                                        <User size={22} />
+                                    </div>
+
+                                    <div>
+                                        <p className="text-sm text-slate-500">
+                                            Full Name
+                                        </p>
+
+                                        <p className="font-semibold text-slate-800">
+                                            {user.name}
+                                        </p>
+                                    </div>
+
                                 </div>
 
-                                <div>
-                                    <p className="text-sm text-slate-500">
-                                        Full Name
-                                    </p>
 
-                                    <p className="font-semibold text-slate-800">
-                                        {user.name}
-                                    </p>
+                                <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5">
+
+                                    <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+                                        <Mail size={22} />
+                                    </div>
+
+                                    <div>
+                                        <p className="text-sm text-slate-500">
+                                            Email Address
+                                        </p>
+
+                                        <p className="font-semibold text-slate-800">
+                                            {user.email}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5">
+
+                                    <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+                                        <ShieldCheck size={22} />
+                                    </div>
+
+                                    <div>
+                                        <p className="text-sm text-slate-500">
+                                            Account Role
+                                        </p>
+
+                                        <p className="font-semibold capitalize text-slate-800">
+                                            {user.role || "User"}
+                                        </p>
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                            <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5">
+                        </section>
 
-                                <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
-                                    <Mail size={22} />
-                                </div>
 
-                                <div>
-                                    <p className="text-sm text-slate-500">
-                                        Email Address
-                                    </p>
 
-                                    <p className="font-semibold text-slate-800">
-                                        {user.email}
-                                    </p>
-                                </div>
-
-                            </div>
-
-                            <div className="flex items-center gap-4 rounded-2xl bg-slate-50 p-5">
-
-                                <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
-                                    <ShieldCheck size={22} />
-                                </div>
-
-                                <div>
-                                    <p className="text-sm text-slate-500">
-                                        Account Role
-                                    </p>
-
-                                    <p className="font-semibold capitalize text-slate-800">
-                                        {user.role || "User"}
-                                    </p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        {/* My Learning Roadmaps */}
-                        <div className="mt-10 border-t border-slate-100 pt-8">
+                       
+                        <section className="mt-10 border-t border-slate-100 pt-8">
 
                             <div className="mb-6 flex items-center gap-3">
 
@@ -273,17 +391,17 @@ const UserProfile = () => {
 
                             </div>
 
+
                             {roadmapLoading && (
 
                                 <div className="py-8 text-center">
-
                                     <p className="font-medium text-slate-500">
                                         Loading your roadmaps...
                                     </p>
-
                                 </div>
 
                             )}
+
 
                             {roadmapError && (
 
@@ -292,6 +410,7 @@ const UserProfile = () => {
                                 </p>
 
                             )}
+
 
                             {!roadmapLoading &&
                                 !roadmapError &&
@@ -322,6 +441,7 @@ const UserProfile = () => {
                                     </div>
 
                                 )}
+
 
                             {!roadmapLoading && !roadmapError && (
 
@@ -356,6 +476,7 @@ const UserProfile = () => {
 
                                                 </div>
 
+
                                                 <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                                                     <div className="flex items-center gap-3">
@@ -377,6 +498,7 @@ const UserProfile = () => {
 
                                                     </div>
 
+
                                                     <div className="flex items-center gap-3">
 
                                                         <BookOpen
@@ -395,6 +517,7 @@ const UserProfile = () => {
                                                         </div>
 
                                                     </div>
+
 
                                                     <div className="flex items-center gap-3">
 
@@ -417,7 +540,8 @@ const UserProfile = () => {
 
                                                 </div>
 
-                                                {/* View Roadmap Details */}
+
+
                                                 <button
                                                     type="button"
                                                     onClick={() =>
@@ -440,7 +564,8 @@ const UserProfile = () => {
 
                                                 </button>
 
-                                                {/* Delete Roadmap Button */}
+
+
                                                 <button
                                                     type="button"
                                                     onClick={() => handleDeleteRoadmap(item._id)}
@@ -451,6 +576,8 @@ const UserProfile = () => {
                                                 </button>
 
                                             </div>
+
+
 
                                             {selectedRoadmap === item._id && (
 
@@ -555,8 +682,696 @@ const UserProfile = () => {
 
                             )}
 
-                        </div>
+                        </section>
 
+
+
+                        
+                        <section className="mt-10 border-t border-slate-100 pt-8">
+
+                            <div className="mb-6 flex items-center gap-3">
+
+                                <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+                                    <FileText size={23} />
+                                </div>
+
+                                <div>
+                                    <h2 className="text-xl font-bold text-slate-800">
+                                        Resume Analysis History
+                                    </h2>
+
+                                    <p className="text-sm text-slate-500">
+                                        Your saved AI resume analysis results
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+
+                            {resumeLoading && (
+
+                                <div className="py-8 text-center">
+                                    <p className="font-medium text-slate-500">
+                                        Loading your resume history...
+                                    </p>
+                                </div>
+
+                            )}
+
+
+
+                            {resumeError && (
+
+                                <p className="rounded-xl bg-red-50 p-4 text-sm text-red-600">
+                                    {resumeError}
+                                </p>
+
+                            )}
+
+
+
+                            {!resumeLoading &&
+                                !resumeError &&
+                                resumes.length === 0 && (
+
+                                    <div className="rounded-2xl bg-slate-50 p-8 text-center">
+
+                                        <FileText
+                                            size={35}
+                                            className="mx-auto mb-3 text-slate-400"
+                                        />
+
+                                        <h3 className="font-semibold text-slate-700">
+                                            No Resume Analysis Yet
+                                        </h3>
+
+                                        <p className="mt-2 text-sm text-slate-500">
+                                            Your analyzed resumes will appear here after you upload your first resume.
+                                        </p>
+
+                                    </div>
+
+                                )}
+
+
+
+                            {!resumeLoading && !resumeError && (
+
+                                <div className="space-y-5">
+
+                                    {resumes.map((item) => (
+
+                                        <div
+                                            key={item._id}
+                                            className="overflow-hidden rounded-2xl border border-slate-200 transition hover:border-blue-300 hover:shadow-md"
+                                        >
+
+                                            <div className="p-5">
+
+                                                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+
+                                                    <div className="flex items-center gap-3">
+
+                                                        <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
+                                                            <FileText size={22} />
+                                                        </div>
+
+                                                        <div className="min-w-0">
+
+                                                            <h3 className="break-all font-bold text-slate-800">
+                                                                {item.fileName}
+                                                            </h3>
+
+                                                            <p className="mt-1 text-sm text-slate-500">
+                                                                {item.createdAt
+                                                                    ? new Date(item.createdAt).toLocaleDateString()
+                                                                    : "Date unavailable"}
+                                                            </p>
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    <div className="flex w-fit items-center gap-2 rounded-xl bg-blue-50 px-4 py-2 text-blue-700">
+
+                                                        <Award size={20} />
+
+                                                        <span className="text-lg font-bold">
+                                                            {item.score}
+                                                        </span>
+
+                                                        <span className="text-sm font-medium">
+                                                            / 100
+                                                        </span>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div className="mt-5 rounded-xl bg-slate-50 p-4">
+
+                                                    <h4 className="mb-2 font-semibold text-slate-800">
+                                                        AI Summary
+                                                    </h4>
+
+                                                    <p className="text-sm leading-6 text-slate-600">
+                                                        {item.summary}
+                                                    </p>
+
+                                                </div>
+
+
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        setSelectedResume(
+                                                            selectedResume === item._id
+                                                                ? null
+                                                                : item._id
+                                                        )
+                                                    }
+                                                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
+                                                >
+
+                                                    {selectedResume === item._id
+                                                        ? "Hide Analysis Details"
+                                                        : "View Analysis Details"}
+
+                                                    {selectedResume === item._id
+                                                        ? <ChevronUp size={19} />
+                                                        : <ChevronDown size={19} />}
+
+                                                </button>
+
+                                            </div>
+
+
+
+                                            {selectedResume === item._id && (
+
+                                                <div className="space-y-6 border-t border-slate-200 bg-slate-50 p-5">
+
+
+                                                    
+                                                    <div>
+
+                                                        <div className="mb-3 flex items-center gap-2">
+
+                                                            <CheckCircle2
+                                                                size={21}
+                                                                className="text-green-600"
+                                                            />
+
+                                                            <h4 className="font-bold text-slate-800">
+                                                                Strengths
+                                                            </h4>
+
+                                                        </div>
+
+                                                        {Array.isArray(item.strengths) ? (
+
+                                                            <ul className="list-disc space-y-2 pl-6 text-sm leading-6 text-slate-600">
+                                                                {item.strengths.map((strength, index) => (
+                                                                    <li key={index}>
+                                                                        {strength}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+
+                                                        ) : (
+
+                                                            <p className="text-sm leading-6 text-slate-600">
+                                                                {item.strengths}
+                                                            </p>
+
+                                                        )}
+
+                                                    </div>
+
+
+
+                                                   
+                                                    <div>
+
+                                                        <div className="mb-3 flex items-center gap-2">
+
+                                                            <AlertCircle
+                                                                size={21}
+                                                                className="text-orange-500"
+                                                            />
+
+                                                            <h4 className="font-bold text-slate-800">
+                                                                Areas to Improve
+                                                            </h4>
+
+                                                        </div>
+
+                                                        {Array.isArray(item.weaknesses) ? (
+
+                                                            <ul className="list-disc space-y-2 pl-6 text-sm leading-6 text-slate-600">
+                                                                {item.weaknesses.map((weakness, index) => (
+                                                                    <li key={index}>
+                                                                        {weakness}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+
+                                                        ) : (
+
+                                                            <p className="text-sm leading-6 text-slate-600">
+                                                                {item.weaknesses}
+                                                            </p>
+
+                                                        )}
+
+                                                    </div>
+
+
+
+                                                    
+                                                    <div>
+
+                                                        <div className="mb-3 flex items-center gap-2">
+
+                                                            <Lightbulb
+                                                                size={21}
+                                                                className="text-blue-600"
+                                                            />
+
+                                                            <h4 className="font-bold text-slate-800">
+                                                                AI Suggestions
+                                                            </h4>
+
+                                                        </div>
+
+                                                        {Array.isArray(item.suggestions) ? (
+
+                                                            <ul className="list-disc space-y-2 pl-6 text-sm leading-6 text-slate-600">
+                                                                {item.suggestions.map((suggestion, index) => (
+                                                                    <li key={index}>
+                                                                        {suggestion}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+
+                                                        ) : (
+
+                                                            <p className="text-sm leading-6 text-slate-600">
+                                                                {item.suggestions}
+                                                            </p>
+
+                                                        )}
+
+                                                    </div>
+
+                                                </div>
+
+                                            )}
+
+                                        </div>
+
+                                    ))}
+
+                                </div>
+
+                            )}
+
+                        </section>
+
+
+
+                       
+                        <section className="mt-10 border-t border-slate-100 pt-8">
+
+                            <div className="mb-6 flex items-center gap-3">
+
+                                <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+                                    <MessageSquare size={23} />
+                                </div>
+
+                                <div>
+                                    <h2 className="text-xl font-bold text-slate-800">
+                                        My Interview History
+                                    </h2>
+
+                                    <p className="text-sm text-slate-500">
+                                        Your saved AI interview sessions and evaluation results
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+
+                           
+                            {interviewLoading && (
+
+                                <div className="py-8 text-center">
+                                    <p className="font-medium text-slate-500">
+                                        Loading your interview history...
+                                    </p>
+                                </div>
+
+                            )}
+
+
+
+                            
+                            {interviewError && (
+
+                                <p className="rounded-xl bg-red-50 p-4 text-sm text-red-600">
+                                    {interviewError}
+                                </p>
+
+                            )}
+
+
+
+                            
+                            {!interviewLoading &&
+                                !interviewError &&
+                                interviews.length === 0 && (
+
+                                    <div className="rounded-2xl bg-slate-50 p-8 text-center">
+
+                                        <MessageSquare
+                                            size={35}
+                                            className="mx-auto mb-3 text-slate-400"
+                                        />
+
+                                        <h3 className="font-semibold text-slate-700">
+                                            No Interviews Yet
+                                        </h3>
+
+                                        <p className="mt-2 text-sm text-slate-500">
+                                            Your AI-generated interviews will appear here after you generate your first interview.
+                                        </p>
+
+                                        <Link
+                                            to="/interview-prep"
+                                            className="mt-5 inline-block rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
+                                        >
+                                            Start Interview
+                                        </Link>
+
+                                    </div>
+
+                                )}
+
+
+
+                            
+                            {!interviewLoading && !interviewError && (
+
+                                <div className="space-y-5">
+
+                                    {interviews.map((item) => (
+
+                                        <div
+                                            key={item._id}
+                                            className="overflow-hidden rounded-2xl border border-slate-200 transition hover:border-blue-300 hover:shadow-md"
+                                        >
+
+                                            <div className="p-5">
+
+                                               
+                                                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+
+                                                    <div>
+
+                                                        <h3 className="text-lg font-bold text-slate-800">
+                                                            {item.jobRole}
+                                                        </h3>
+
+                                                        <p className="mt-1 text-sm text-slate-500">
+                                                            {item.difficulty} Level
+                                                        </p>
+
+                                                        <p className="mt-2 text-sm text-slate-500">
+                                                            {item.createdAt
+                                                                ? new Date(item.createdAt).toLocaleDateString()
+                                                                : "Date unavailable"}
+                                                        </p>
+
+                                                    </div>
+
+
+
+                                                    <div className="flex flex-wrap items-center gap-2">
+
+                                                        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${item.status === "Completed"
+                                                                ? "bg-green-50 text-green-600"
+                                                                : "bg-orange-50 text-orange-600"
+                                                            }`}>
+                                                            {item.status || "In Progress"}
+                                                        </span>
+
+
+                                                        {item.status === "Completed" && (
+
+                                                            <div className="flex items-center gap-2 rounded-xl bg-blue-50 px-4 py-2 text-blue-700">
+
+                                                                <Award size={20} />
+
+                                                                <span className="text-lg font-bold">
+                                                                    {item.totalScore}
+                                                                </span>
+
+                                                                <span className="text-sm font-medium">
+                                                                    / 100
+                                                                </span>
+
+                                                            </div>
+
+                                                        )}
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                
+                                                <div className="mt-5 flex items-center gap-3">
+
+                                                    <BriefcaseBusiness
+                                                        size={20}
+                                                        className="text-blue-600"
+                                                    />
+
+                                                    <p className="text-sm font-medium text-slate-600">
+                                                        {item.questions?.length || 0} Interview Questions
+                                                    </p>
+
+                                                </div>
+
+
+
+                                               
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        setSelectedInterview(
+                                                            selectedInterview === item._id
+                                                                ? null
+                                                                : item._id
+                                                        )
+                                                    }
+                                                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
+                                                >
+
+                                                    {selectedInterview === item._id
+                                                        ? "Hide Interview Details"
+                                                        : "View Interview Details"}
+
+                                                    {selectedInterview === item._id
+                                                        ? <ChevronUp size={19} />
+                                                        : <ChevronDown size={19} />}
+
+                                                </button>
+
+                                            </div>
+
+
+
+                                            
+                                            {selectedInterview === item._id && (
+
+                                                <div className="space-y-6 border-t border-slate-200 bg-slate-50 p-5 sm:p-7">
+
+
+                                                    
+                                                    <div>
+
+                                                        <h4 className="mb-4 text-lg font-bold text-slate-800">
+                                                            Interview Questions and Answers
+                                                        </h4>
+
+                                                        <div className="space-y-5">
+
+                                                            {item.questions?.map((question, index) => {
+
+                                                                const answer = item.answers?.find(
+                                                                    (ans) => ans.questionIndex === index
+                                                                );
+
+                                                                return (
+
+                                                                    <div
+                                                                        key={index}
+                                                                        className="rounded-xl border border-slate-200 bg-white p-5"
+                                                                    >
+
+                                                                        <h5 className="font-semibold text-slate-800">
+                                                                            Question {index + 1}
+                                                                        </h5>
+
+                                                                        <p className="mt-2 leading-7 text-slate-600">
+                                                                            {question}
+                                                                        </p>
+
+
+
+                                                                        {answer ? (
+
+                                                                            <div className="mt-4 border-t border-slate-100 pt-4">
+
+                                                                                <p className="font-semibold text-slate-800">
+                                                                                    Your Answer
+                                                                                </p>
+
+                                                                                <p className="mt-2 whitespace-pre-wrap text-sm leading-7 text-slate-600">
+                                                                                    {answer.answer}
+                                                                                </p>
+
+
+
+                                                                                <div className="mt-4 rounded-xl bg-blue-50 p-4">
+
+                                                                                    <div className="flex items-center justify-between">
+
+                                                                                        <p className="font-semibold text-blue-800">
+                                                                                            AI Score
+                                                                                        </p>
+
+                                                                                        <span className="font-bold text-blue-700">
+                                                                                            {answer.score}/10
+                                                                                        </span>
+
+                                                                                    </div>
+
+                                                                                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                                                                                        {answer.feedback}
+                                                                                    </p>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        ) : (
+
+                                                                            <p className="mt-3 text-sm italic text-orange-500">
+                                                                                Answer not submitted yet.
+                                                                            </p>
+
+                                                                        )}
+
+                                                                    </div>
+
+                                                                );
+
+                                                            })}
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    
+                                                    {item.status === "Completed" && (
+
+                                                        <>
+
+                                                            <div>
+
+                                                                <h4 className="mb-3 font-bold text-slate-800">
+                                                                    Overall AI Feedback
+                                                                </h4>
+
+                                                                <p className="rounded-xl bg-white p-4 text-sm leading-7 text-slate-600">
+                                                                    {item.overallFeedback}
+                                                                </p>
+
+                                                            </div>
+
+
+
+                                                            
+                                                            <div>
+
+                                                                <div className="mb-3 flex items-center gap-2">
+
+                                                                    <CheckCircle2
+                                                                        size={21}
+                                                                        className="text-green-600"
+                                                                    />
+
+                                                                    <h4 className="font-bold text-slate-800">
+                                                                        Strengths
+                                                                    </h4>
+
+                                                                </div>
+
+                                                                <ul className="list-disc space-y-2 pl-6 text-sm leading-6 text-slate-600">
+
+                                                                    {item.strengths?.map((strength, index) => (
+                                                                        <li key={index}>
+                                                                            {strength}
+                                                                        </li>
+                                                                    ))}
+
+                                                                </ul>
+
+                                                            </div>
+
+
+
+                                                           
+                                                            <div>
+
+                                                                <div className="mb-3 flex items-center gap-2">
+
+                                                                    <AlertCircle
+                                                                        size={21}
+                                                                        className="text-orange-500"
+                                                                    />
+
+                                                                    <h4 className="font-bold text-slate-800">
+                                                                        Areas to Improve
+                                                                    </h4>
+
+                                                                </div>
+
+                                                                <ul className="list-disc space-y-2 pl-6 text-sm leading-6 text-slate-600">
+
+                                                                    {item.areasToImprove?.map((area, index) => (
+                                                                        <li key={index}>
+                                                                            {area}
+                                                                        </li>
+                                                                    ))}
+
+                                                                </ul>
+
+                                                            </div>
+
+                                                        </>
+
+                                                    )}
+
+                                                </div>
+
+                                            )}
+
+                                        </div>
+
+                                    ))}
+
+                                </div>
+
+                            )}
+
+                        </section>
+
+
+
+                        
                         {error && (
 
                             <p className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-600">
@@ -565,11 +1380,14 @@ const UserProfile = () => {
 
                         )}
 
+
+
+                        
                         <button
                             type="button"
                             onClick={handleLogout}
                             disabled={loading}
-                            className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-red-500 px-6 py-4 font-semibold text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+                            className="mt-10 flex w-full items-center justify-center gap-3 rounded-xl bg-red-500 px-6 py-4 font-semibold text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
                         >
 
                             <LogOut size={20} />
@@ -589,5 +1407,6 @@ const UserProfile = () => {
     );
 
 };
+
 
 export default UserProfile;

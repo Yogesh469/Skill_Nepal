@@ -5,6 +5,9 @@ import Authroute from "./routes/AuthRoute.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import roadrouter from "./routes/Roadmaproutes.js"
+import Reumeanalrouter from "./routes/ResumeAnalroute.js"
+import Interviewrouter from "./routes/InterviewRoute.js"
+import payrouter from "./routes/PaymentRoute.js"
 
 dotenv.config()
 
@@ -29,6 +32,9 @@ app.get("/" , (req,res)=>{
 
 app.use("/Authapi" ,Authroute)
 app.use("/roadmapapi",roadrouter)
+app.use("/resumeanalapi",Reumeanalrouter)
+app.use("/interviewapi" ,Interviewrouter)
+app.use("/paymentapi", payrouter)
 
 
 
